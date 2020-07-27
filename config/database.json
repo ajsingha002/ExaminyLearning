@@ -1,0 +1,7 @@
+{
+	"username" : "appuser",
+	"password" : "app123",
+	"host" : "localhost",
+	"port" : "4000",
+	"dbname" : "examiny"
+}

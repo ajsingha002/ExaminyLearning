@@ -1,0 +1,26 @@
+<div id="course-{{count}}" class="col-lg-6">
+	<input hidden value="value.id+'">
+	<div class="card shadow mb-4">
+		<div class="card-header py-3">
+			<h6 class="m-0 font-weight-bold text-primary">{{courseName}}</h6>
+		</div>
+		<div class="card-body">
+			{{description}}
+			<br><br>
+			<div class="d-flex flex-row justify-content-around card-header py-2" style="text-align: center;">
+				<div class="p-2 h5 mb-0 font-weight-bold text-gray-800">
+				{{type}}
+				</div>
+				<div class="p-2">
+					<i class="fas fa-rupee-sign" aria-hidden="true"></i>
+					{{price}}/month
+				</div>
+				<div class="p-2">
+					<a href="#">
+						<i class="fas fa-plus-square fa-lg" aria-hidden="true" style="color: #1cc88a"></i>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
