@@ -2,15 +2,18 @@ const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
 const logger = require('morgan');
 const hbs = require('express-handlebars');
 const db = require('./database');
-
+var multer = require('multer');
 const indexRouter = require('./routes/index');
 const dashboardRouter = require('./routes/dashboard');
 const usersRouter = require('./routes/users');
 const apiCRUDSRouter = require('./routes/apiCRUDS');
 const apiJOINSRouter = require('./routes/apiJOINS');
+const apiUploadRouter = require('./routes/apiUpload');
+const apiDownloadRouter = require('./routes/apiDownload');
 
 const app = express();
 
@@ -30,8 +33,8 @@ app.engine('hbs', hbs({
 }));
 
 app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -40,6 +43,8 @@ app.use('/dashboard', dashboardRouter)
 app.use('/users', usersRouter);
 app.use('/api/CRUDS/', apiCRUDSRouter);
 app.use('/api/JOINS/', apiJOINSRouter);
+app.use('/api/files/upload/', apiUploadRouter);
+app.use('/api/files/download/', apiDownloadRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

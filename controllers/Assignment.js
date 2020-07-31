@@ -82,11 +82,29 @@ let getAssignmentByUserId = async (body) => {
 	return data;
 }
 
+ let getAssignmentByCourseIdUserId = async (courseId, userId) => {
+	try {
+		let query;
+		if(courseId === null || userId === null)
+			query = null;
+		else
+			query = {
+				userId : userId,
+				courseId : courseId
+			};
+		data = await cruds.getData(model, query);
+	} catch(e) {
+		console.log('\n\nError Occured : \n' + e);
+		data = 'error';
+	}
+	return data; 
+ }
 module.exports = {
 	get : get,
 	add : add,
 	update : update,
 	del : del,
 	getAssignmentByCourseId : getAssignmentByCourseId,
-	getAssignmentByUserId : getAssignmentByUserId
+	getAssignmentByUserId : getAssignmentByUserId,
+	getAssignmentByCourseIdUserId : getAssignmentByCourseIdUserId
 }

@@ -1,37 +1,29 @@
 const { Sequelize } = require('sequelize');
-const DataTypes = require('sequelize/lib/data-types');
+var DataTypes = require('sequelize/lib/data-types');
 const db = require('../database');
 
-module.exports = db.define('submissions', {
+module.exports = db.define('materials', {
   id: {
     autoIncrement: true,
     type: DataTypes.INTEGER,
     allowNull: false,
     primaryKey: true
   },
-  assignmentId: {
+  name: {
     type: DataTypes.TEXT,
-    allowNull: true
+    allowNull: false
   },
-  examId: {
+  courseId: {
     type: DataTypes.TEXT,
-    allowNull: true
+    allowNull: false
   },
-  userId: {
+  description: {
     type: DataTypes.TEXT,
     allowNull: false
   },
   file_link: {
     type: DataTypes.TEXT,
-    allowNull: true
-  },
-  marks: {
-    type: DataTypes.TEXT,
-    allowNull: true
-  },
-  comment: {
-    type: DataTypes.TEXT,
-    allowNull: true
+    allowNull: false
   },
   createdAt: {
     type: DataTypes.DATEONLY,
@@ -49,8 +41,4 @@ module.exports = db.define('submissions', {
     type: DataTypes.TEXT,
     allowNull: false
   }
-}, {
-  tableName: 'submissions',
-  freezeTableName: true
 });
-

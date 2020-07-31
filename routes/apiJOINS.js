@@ -15,4 +15,15 @@ router.get('/courseEnrollment/userId/:id', async function(req, res, next) {
 	res.send(response);
 });
 
+//join all tables to build all event object
+router.get('/events/userId/:id', async function(req, res, next) {
+	let userId = req.params.id;
+	let data = await joins.getEventsByUserId(userId);
+	let response= {
+		status : "success",
+		values : data
+	};
+	res.send(response);
+});
+
 module.exports = router;

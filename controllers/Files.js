@@ -1,4 +1,4 @@
-const model = require('../models/Courses');
+const model = require('../models/Files');
 const cruds = require('./CRUDS');
 let get = async (body) => {
 	try {
@@ -16,7 +16,6 @@ let get = async (body) => {
 }
 
 let add = async (body) => {
-	// console.log(body);
 	try {
 		data = await cruds.addData(model, body);
 	} catch(e) {
@@ -27,7 +26,7 @@ let add = async (body) => {
 } 
 
 let update = async (body) => {
-	// console.log(body);
+	console.log(body);
 	try {
 		let query = {id : body.id};
 		delete body.id;
@@ -40,7 +39,7 @@ let update = async (body) => {
 } 
 
 let del = async (body) => {
-	// console.log(body);
+	console.log(body);
 	try {
 		let query = {id : body.id};
 		delete body.id;
@@ -50,7 +49,7 @@ let del = async (body) => {
 		data = 'error';
 	}
 	return data;
-} 
+}
 
 module.exports = {
 	get : get,

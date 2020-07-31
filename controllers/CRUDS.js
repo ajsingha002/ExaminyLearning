@@ -20,13 +20,14 @@ const getData = async (model, query) => {
 }
 
 const addData = async (model, query) => {
-	console.log(query);
 	let data;
 	try {
 		if(query === null)
 			data = null;
-		else
+		else{
+			console.log(query);
 			data = await model.create(query);
+		}
 	} catch(e) {
 		console.log('\n\nError Occured : \n' + e);
 		data = 'error';
