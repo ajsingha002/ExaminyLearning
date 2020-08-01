@@ -35,7 +35,7 @@ $(document).ready(function() {
 });
 
 let getUpcomingActivities = (userId) => {
-	return $.get( "http://localhost:3000/api/JOINS/events/userId/"+userId, function( data ) {
+	return $.get( host+"/api/JOINS/events/userId/"+userId, function( data ) {
 		if(data.status === "failure") {
 			alert("Failure in getting Events. Kindly contact admin.");
 		}

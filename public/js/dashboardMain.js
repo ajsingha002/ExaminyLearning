@@ -14,7 +14,7 @@ let loadAvailableCourses = () => {
 	$( '#availableCourses' ).on( 'click', () => {
 		pageName = "Available Courses";
 		$( '#mainContentWrapper' ).empty().append('<div class="container-fluid" id="mainContent"><div class="d-sm-flex align-items-center justify-content-between mb-4"><h1 class="h3 mb-0 text-gray-800">'+pageName+'</h1></div></div>');
-		$.get( "http://localhost:3000/api/CRUDS/courses/", function( data ) {
+		$.get( host+"/api/CRUDS/courses/", function( data ) {
 			if(data.status === "failure") {
 				alert("Failure in getting Courses. Kindly contact admin.");
 			}
@@ -41,7 +41,7 @@ let loadEnrolledCourses = () => {
 	$( '#enrolledCourses' ).on( 'click', () => {
 		pageName = "Enrolled Courses";
 		$( '#mainContentWrapper' ).empty().append('<div class="container-fluid" id="mainContent"><div class="d-sm-flex align-items-center justify-content-between mb-4"><h1 class="h3 mb-0 text-gray-800">'+pageName+'</h1></div></div>');
-		$.get( "http://localhost:3000/api/JOINS/courseEnrollment/userId/"+userId, function( data ) {
+		$.get( host+"/api/JOINS/courseEnrollment/userId/"+userId, function( data ) {
 			if(data.status === "failure") {
 				alert("Failure in getting Courses. Kindly contact admin.");
 			}
@@ -131,7 +131,7 @@ let loadEventCalender = (userId) => {
 }
 
 let getEventsforUser = (userId) => {
-	return $.get( "http://localhost:3000/api/JOINS/events/userId/"+userId, function( data ) {
+	return $.get( host+"/api/JOINS/events/userId/"+userId, function( data ) {
 		if(data.status === "failure") {
 			alert("Failure in getting Events. Kindly contact admin.");
 		}
@@ -156,7 +156,7 @@ let loadCourseDetails = (courseName, courseId) => {
 //loads classes tab details
 let loadClassesDetails = (courseId) => {
 	//ajax call for class data
-	$.get( "http://localhost:3000/api/CRUDS/classes/courseId/"+courseId, function( data ) {
+	$.get( host+"/api/CRUDS/classes/courseId/"+courseId, function( data ) {
 		if(data.status === "failure") {
 			alert("Failure in getting Class Details. Kindly contact admin.");
 		}
@@ -197,13 +197,13 @@ let loadClassesDetails = (courseId) => {
 //loads Assignments tab details 
 let loadAssignmentsDetails = (courseId, userId) => {
 	//ajax call to get assignments for Course Id
-	$.get( "http://localhost:3000/api/CRUDS/assignment/courseId/"+courseId, function( assignmentData ) {
+	$.get( host+"/api/CRUDS/assignment/courseId/"+courseId, function( assignmentData ) {
 		if(assignmentData.status === "failure") {
 			alert("Failure in getting Assignement Details. Kindly contact admin.");
 		}
 		else {
 			//ajax call to get all submissions
-			$.get( "http://localhost:3000/api/CRUDS/submissions/", function( submissionData ) {
+			$.get( host+"/api/CRUDS/submissions/", function( submissionData ) {
 				if(submissionData.status === "failure") {
 					alert("Failure in getting Submission Details. Kindly contact admin.");
 				}
@@ -271,7 +271,7 @@ let loadAssignmentsDetails = (courseId, userId) => {
 //loads Materials tab details 
 let loadMaterialsDetails = (courseId) => {
 	//ajax call to get assignments for Course Id
-	$.get( "http://localhost:3000/api/CRUDS/materials/courseId/"+courseId, function( materialsData ) {
+	$.get( host+"/api/CRUDS/materials/courseId/"+courseId, function( materialsData ) {
 		if(materialsData.status === "failure") {
 			alert("Failure in getting Assignement Details. Kindly contact admin.");
 		}
@@ -401,7 +401,7 @@ let submitAssignment = (assignId, submitId) => {
 	//there is already a submission - setup for download button of aold assignment submission
 	if(submitId > 0) {
 		//get submission details by id
-		$.get( "http://localhost:3000/api/CRUDS/submissions/id/"+submitId, function( data ) {
+		$.get( host+"/api/CRUDS/submissions/id/"+submitId, function( data ) {
 			if(data.status === "failure") {
 				alert("Failure in getting Submission Details for modal. Kindly contact admin.");
 			}
@@ -462,7 +462,7 @@ var startUpload = function(files, assignId, submitId) {
 	let form = $('#js-upload-form')[0]; // You need to use standard javascript object here
 	let formData = new FormData(form);
 	$.ajax({
-		url: "http://localhost:3000/api/files/upload/",
+		url: host+"/api/files/upload/",
 		data: formData,
 		cache: false,
 		contentType: false,
@@ -475,7 +475,7 @@ var startUpload = function(files, assignId, submitId) {
 				if(submitId > 0) {
 					$.ajax({
 						type : "PUT", 
-						url : "http://localhost:3000/api/CRUDS/submissions/", 
+						url : host+"/api/CRUDS/submissions/", 
 						data : {id : submitId, file_link : fileId},
 						success : (data) => {
 							//on success submission, alert user and activate button to download submitted assignment.
@@ -507,7 +507,7 @@ var startUpload = function(files, assignId, submitId) {
 					};
 					//ajax call for post request - addition of new submission
 					//toggle button status on success or failure
-					$.post( "http://localhost:3000/api/CRUDS/submissions/", submitdata, (data) => {
+					$.post( host+"/api/CRUDS/submissions/", submitdata, (data) => {
 						if(data.status==="success") {
 							alert("Assignment submitted successfully!");
 							$('#oldSubmitAssignLink').removeClass("btn-secondary");
@@ -531,7 +531,7 @@ var startUpload = function(files, assignId, submitId) {
 //generic funtion for download of any file - args : File ID
 let downloadFile = (fileId) => {
 	//post call for downloading assignment - in modal
-	let form = '<form id="downloadForm" action="http://localhost:3000/api/files/download/" method="POST">' + 
+	let form = '<form id="downloadForm" action=host+"/api/files/download/" method="POST">' + 
 					'<input type="hidden" name="id" value="'+fileId+'">' +
 				'</form>';
 	$('#assignment').append(form);
